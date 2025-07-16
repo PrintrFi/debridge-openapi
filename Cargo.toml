@@ -1,5 +1,5 @@
 [package]
-name = "debridge-openapi"
+name = "debridge_openapi"
 version = "1.0.0"
 authors = ["deBridge team", "OpenAPI Generator team and contributors"]
 description = "A turnkey solution for a high-performance cross-chain trading"
