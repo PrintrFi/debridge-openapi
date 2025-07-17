@@ -2078,7 +2078,7 @@
             "type": "number"
           }
         },
-        "required": ["to", "data", "value"]
+        "required": ["data"]
       },
       "Order": {
         "type": "object",
