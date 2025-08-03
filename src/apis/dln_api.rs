@@ -9,7 +9,7 @@
  */
 
 
-use reqwest;
+use reqwest::{self, Request};
 use serde::{Deserialize, Serialize, de::Error as _};
 use crate::{apis::ResponseContent, models};
 use super::{Error, configuration, ContentType};
@@ -106,8 +106,8 @@ pub async fn dln_order_controller_v10_cancel_order(configuration: &configuration
     }
 }
 
-/// This endpoint returns the data for a transaction to place a cross-chain DLN order.
-pub async fn dln_order_controller_v10_create_order(configuration: &configuration::Configuration, src_chain_id: &str, src_chain_token_in: &str, src_chain_token_in_amount: &str, dst_chain_id: &str, dst_chain_token_out: &str, dst_chain_token_out_amount: Option<&str>, additional_taker_reward_bps: Option<i32>, src_intermediary_token_address: Option<&str>, dst_intermediary_token_address: Option<&str>, dst_intermediary_token_spender_address: Option<&str>, intermediary_token_usd_price: Option<f64>, dst_chain_token_out_recipient: Option<&str>, sender_address: Option<&str>, src_chain_order_authority_address: Option<&str>, src_allowed_cancel_beneficiary: Option<&str>, referral_code: Option<&str>, affiliate_fee_percent: Option<f64>, affiliate_fee_recipient: Option<&str>, src_chain_token_in_sender_permit: Option<&str>, dst_chain_order_authority_address: Option<&str>, enable_estimate: Option<bool>, allowed_taker: Option<&str>, external_call: Option<&str>, dln_hook: Option<&str>, prepend_operating_expenses: Option<bool>, metadata: Option<&str>, otc: Option<bool>, ptp: Option<bool>, skip_solana_recipient_validation: Option<bool>, src_chain_priority_level: Option<&str>) -> Result<models::DlnOrderControllerV10CreateOrder200Response, Error<DlnOrderControllerV10CreateOrderError>> {
+/// This endpoint returns the URL for a transaction to place a cross-chain DLN order.
+pub async fn dln_order_controller_v10_create_order_request(configuration: &configuration::Configuration, src_chain_id: &str, src_chain_token_in: &str, src_chain_token_in_amount: &str, dst_chain_id: &str, dst_chain_token_out: &str, dst_chain_token_out_amount: Option<&str>, additional_taker_reward_bps: Option<i32>, src_intermediary_token_address: Option<&str>, dst_intermediary_token_address: Option<&str>, dst_intermediary_token_spender_address: Option<&str>, intermediary_token_usd_price: Option<f64>, dst_chain_token_out_recipient: Option<&str>, sender_address: Option<&str>, src_chain_order_authority_address: Option<&str>, src_allowed_cancel_beneficiary: Option<&str>, referral_code: Option<&str>, affiliate_fee_percent: Option<f64>, affiliate_fee_recipient: Option<&str>, src_chain_token_in_sender_permit: Option<&str>, dst_chain_order_authority_address: Option<&str>, enable_estimate: Option<bool>, allowed_taker: Option<&str>, external_call: Option<&str>, dln_hook: Option<&str>, prepend_operating_expenses: Option<bool>, metadata: Option<&str>, otc: Option<bool>, ptp: Option<bool>, skip_solana_recipient_validation: Option<bool>, src_chain_priority_level: Option<&str>) -> reqwest::Result<Request> {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_src_chain_id = src_chain_id;
     let p_src_chain_token_in = src_chain_token_in;
@@ -227,7 +227,10 @@ pub async fn dln_order_controller_v10_create_order(configuration: &configuration
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
 
-    let req = req_builder.build()?;
+    req_builder.build()
+}
+
+pub async fn dln_order_controller_v10_create_order(configuration: &configuration::Configuration, req: Request) -> Result<models::DlnOrderControllerV10CreateOrder200Response, Error<DlnOrderControllerV10CreateOrderError>> {
     let resp = configuration.client.execute(req).await?;
 
     let status = resp.status();
