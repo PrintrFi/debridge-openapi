@@ -25,6 +25,7 @@ pub enum DlnOrderControllerV10CancelOrderError {
 /// struct for typed errors of method [`dln_order_controller_v10_create_order`]
 #[derive(Debug, Clone, Serialize, Deserialize)]
 #[serde(untagged)]
+#[serde(rename_all = "camelCase")]
 pub enum DlnOrderControllerV10CreateOrderError {
     Status400(models::BadRequestResponse),
     Status500(models::InternalServerErrorResponse),
