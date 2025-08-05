@@ -19,22 +19,14 @@ pub struct BadRequestResponse {
     pub error_id: String,
     #[serde(rename = "errorMessage")]
     pub error_message: String,
-    #[serde(rename = "errorPayload")]
-    pub error_payload: serde_json::Value,
 }
 
 impl BadRequestResponse {
-    pub fn new(
-        error_code: i32,
-        error_id: String,
-        error_message: String,
-        error_payload: serde_json::Value,
-    ) -> BadRequestResponse {
+    pub fn new(error_code: i32, error_id: String, error_message: String) -> BadRequestResponse {
         BadRequestResponse {
             error_code,
             error_id,
             error_message,
-            error_payload,
         }
     }
 }
