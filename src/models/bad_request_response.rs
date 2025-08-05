@@ -16,7 +16,7 @@ pub struct BadRequestResponse {
     #[serde(rename = "errorCode")]
     pub error_code: i32,
     #[serde(rename = "errorId")]
-    pub error_id: ErrorId,
+    pub error_id: String,
     #[serde(rename = "errorMessage")]
     pub error_message: String,
     #[serde(rename = "errorPayload")]
@@ -26,7 +26,7 @@ pub struct BadRequestResponse {
 impl BadRequestResponse {
     pub fn new(
         error_code: i32,
-        error_id: ErrorId,
+        error_id: String,
         error_message: String,
         error_payload: serde_json::Value,
     ) -> BadRequestResponse {
@@ -36,23 +36,5 @@ impl BadRequestResponse {
             error_message,
             error_payload,
         }
-    }
-}
-///
-#[derive(Clone, Copy, Debug, Eq, PartialEq, Ord, PartialOrd, Hash, Serialize, Deserialize)]
-pub enum ErrorId {
-    #[serde(rename = "INVALID_QUERY_PARAMETERS")]
-    InvalidQueryParameters,
-    #[serde(rename = "SOURCE_AND_DESTINATION_CHAINS_ARE_EQUAL")]
-    SourceAndDestinationChainsAreEqual,
-    #[serde(rename = "INCLUDED_GAS_FEE_NOT_COVERED_BY_INPUT_AMOUNT")]
-    IncludedGasFeeNotCoveredByInputAmount,
-    #[serde(rename = "INCLUDED_GAS_FEE_CANNOT_BE_ESTIMATED_FOR_TRANSACTION_BUNDLE")]
-    IncludedGasFeeCannotBeEstimatedForTransactionBundle,
-}
-
-impl Default for ErrorId {
-    fn default() -> ErrorId {
-        Self::InvalidQueryParameters
     }
 }
