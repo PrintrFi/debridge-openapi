@@ -148,7 +148,7 @@ pub async fn dln_order_controller_v10_create_order_request(
     ptp: Option<bool>,
     skip_solana_recipient_validation: Option<bool>,
     src_chain_priority_level: Option<&str>,
-) -> reqwest::Result<Request> {
+) -> reqwest::RequestBuilder {
     // add a prefix to parameters to efficiently prevent name collisions
     let p_src_chain_id = src_chain_id;
     let p_src_chain_token_in = src_chain_token_in;
@@ -281,7 +281,7 @@ pub async fn dln_order_controller_v10_create_order_request(
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
 
-    req_builder.build()
+    req_builder
 }
 
 pub async fn dln_order_controller_v10_create_order(
