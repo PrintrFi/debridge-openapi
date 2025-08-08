@@ -116,7 +116,7 @@ pub async fn dln_order_controller_v10_cancel_order(
 }
 
 /// This endpoint returns the URL for a transaction to place a cross-chain DLN order.
-pub async fn dln_order_controller_v10_create_order_request(
+pub fn dln_order_controller_v10_create_order_request(
     configuration: &configuration::Configuration,
     src_chain_id: &str,
     src_chain_token_in: &str,
