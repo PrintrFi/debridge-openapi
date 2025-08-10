@@ -482,6 +482,10 @@ pub async fn dln_order_controller_v10_get_order_status(
     );
     let mut req_builder = configuration.client.request(reqwest::Method::GET, &uri_str);
 
+    if let Some(access_token) = configuration.api_key.as_ref() {
+        req_builder = req_builder.query(&[("accesstoken", &access_token.key)]);
+    }
+
     if let Some(ref user_agent) = configuration.user_agent {
         req_builder = req_builder.header(reqwest::header::USER_AGENT, user_agent.clone());
     }
